@@ -41,14 +41,14 @@ Classical model selection assumes that a single model is correct, ignoring uncer
 
 Bayesian Model Averaging addresses this limitation by combining all candidate models:
 
-[
-p(Y|X,D) = \sum_k P(M_k|D), p(Y|X,M_k,D)
-]
+
+$p(Y|X,D) = \sum_k P(M_k|D), p(Y|X,M_k,D)$
+
 
 where:
 
-* (P(M_k|D)) are posterior model probabilities
-* (p(Y|X,M_k,D)) are posterior predictive distributions
+* $(P(M_k|D))$ are posterior model probabilities
+* $(p(Y|X,M_k,D))$ are posterior predictive distributions
 
 This framework propagates:
 
@@ -72,9 +72,8 @@ A simulated dataset was generated with:
 
 The first four predictors were sampled independently from:
 
-[
-X_i \sim \mathcal{N}(0,1)
-]
+$X_i \sim \mathcal{N}(0,1)$
+
 
 while the remaining variables were constructed as linear combinations of the first predictors plus Gaussian noise, introducing multicollinearity.
 
@@ -88,21 +87,15 @@ Three Bayesian GLMs were estimated:
 
 ### **Logit**
 
-[
-p = \frac{1}{1+\exp(-\eta)}
-]
+$p = \frac{1}{1+\exp(-\eta)}$
 
 ### **Probit**
 
-[
-p = \Phi(\eta)
-]
+$p = \Phi(\eta)$
 
 ### **Complementary Log-Log (cloglog)**
 
-[
-p = 1-\exp(-\exp(\eta))
-]
+$p = 1-\exp(-\exp(\eta))$
 
 Each model was implemented separately in **Stan**.
 
@@ -112,9 +105,7 @@ Each model was implemented separately in **Stan**.
 
 Regression coefficients were assigned a multivariate Gaussian prior:
 
-[
-\beta \sim \mathcal{N}_p(\beta_0, \Sigma_0)
-]
+$\beta \sim \mathcal{N}_p(\beta_0, \Sigma_0)$
 
 This choice:
 
@@ -133,9 +124,7 @@ The candidate model space included:
 
 for a total of:
 
-[
-3 \times 2^6 = 192 \text{ models}
-]
+$3 \times 2^6 = 192 \text{ models}$
 
 Each model was estimated using **Markov Chain Monte Carlo (MCMC)**.
 
@@ -171,9 +160,7 @@ This result is coherent with the data-generating mechanism.
 
 The posterior variance under BMA decomposes into:
 
-[
-Var_{BMA}(\beta)=E_M[Var(\beta|M,y)] + Var_M(E[\beta|M,y])
-]
+$Var_{BMA}(\beta)=E_M[Var(\beta|M,y)] + Var_M(E[\beta|M,y])$
 
 capturing:
 
